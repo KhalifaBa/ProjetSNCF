@@ -3,6 +3,7 @@ package Controlers;
 import Entities.Activite;
 import Tools.ConnexionBDD;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,8 +22,22 @@ public class CtrlActivite {
     }
 
     // Permet de récupérer toutes les activités
-    public ArrayList<Activite> getAllActivites()
-    {
-        return null;
+    public ArrayList<Activite> getAllActivites()  {
+
+        ArrayList<Activite> lesActivites = new ArrayList<>();
+        try {
+        ps = cnx.prepareStatement("select numero,libelle from activite");
+        rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Activite activite = new Activite(rs.getInt(1), rs.getString(2));
+                lesActivites.add(activite);
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new RuntimeException(ex);
+        }
+        return lesActivites;
     }
 }

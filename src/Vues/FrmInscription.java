@@ -24,6 +24,10 @@ public class FrmInscription extends JFrame
     private JTable tblFormations;
     private JButton btnInscription;
 
+    ModelJTable mdl;
+
+    CtrlActivite ctrlActivite;
+
 
 
     public FrmInscription()
@@ -39,6 +43,12 @@ public class FrmInscription extends JFrame
             public void windowOpened(WindowEvent e) {
                 super.windowOpened(e);
                 // A vous de jouer
+
+
+                ctrlActivite = new CtrlActivite();
+                mdl = new ModelJTable();
+                mdl.LoadDatasActivites(ctrlActivite.getAllActivites());
+                tblActivites.setModel(mdl);
 
             }
         });

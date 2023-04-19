@@ -1,6 +1,8 @@
 package Vues;
 
 
+import Tools.ConnexionBDD;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -19,6 +21,8 @@ public class FrmMenu extends JFrame{
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+
+        ConnexionBDD maCnx = new ConnexionBDD(); // Class + objet = constructeur
 
 
 
