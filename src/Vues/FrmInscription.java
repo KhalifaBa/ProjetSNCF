@@ -28,6 +28,13 @@ public class FrmInscription extends JFrame
 
     CtrlActivite ctrlActivite;
 
+    CtrlFormation ctrlFormation;
+
+    CtrlAgent ctrlAgent;
+
+    CtrlInscription ctrlInscription;
+    String numFormation;
+
 
 
     public FrmInscription()
@@ -58,6 +65,11 @@ public class FrmInscription extends JFrame
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 // A vous de jouer
+                int numActivite = Integer.parseInt(tblActivites.getValueAt(tblActivites.getSelectedRow(),0).toString());
+                mdl = new ModelJTable();
+                ctrlFormation = new CtrlFormation();
+                mdl.LoadDatasFormations(ctrlFormation.getFormationsByActivite(numActivite));
+                tblFormations.setModel(mdl);
 
 
             }
@@ -68,6 +80,11 @@ public class FrmInscription extends JFrame
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 // A vous de jouer
+                numFormation = tblFormations.getValueAt(tblFormations.getSelectedRow(),0).toString();
+                mdl = new ModelJTable();
+                mdl.LoadDatasAgents(ctrlAgent.getAllAgentsNonInscrits(numFormation));
+                tblAgentsNonInscrits.setModel(mdl);
+
 
 
             }
@@ -78,6 +95,13 @@ public class FrmInscription extends JFrame
                 super.mouseClicked(e);
 
                 // A vous de jouer
+                ctrlInscription = new CtrlInscription();
+                for (int i = 0; i<tblAgentsNonInscrits.getSelectedRowCount();i++)
+                {
+                    ctrlInscription.InsererInscription(numFormation,tblAgentsNonInscrits.getValueAt(tblAgentsNonInscrits.getSelectedRows()[i],0).toString());
+                }
+
+
 
             }
         });

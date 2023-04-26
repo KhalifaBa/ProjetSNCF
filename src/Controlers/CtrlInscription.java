@@ -23,6 +23,18 @@ public class CtrlInscription
 
     public void InsererInscription(String codeFormation, String codeAgent)
     {
+        try {
+            ps = cnx.prepareStatement("INSERT INTO inscription VALUES (?,?,?)");
+            ps.setString(1,codeAgent);
+            ps.setString(2,codeFormation);
+            ps.setInt(3,0);
+            rs = ps.executeQuery();
+        } catch (SQLException e)
+        {
+            throw new RuntimeException();
+
+        }
+
 
     }
 }

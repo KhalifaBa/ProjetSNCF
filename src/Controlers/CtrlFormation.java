@@ -24,7 +24,28 @@ public class CtrlFormation
 
     public ArrayList<Formation> getFormationsByActivite(int idActivite)
     {
+        ArrayList<Formation> lesFormations = new ArrayList<>();
+        try
+        {
+            ps = cnx.prepareStatement("SELECT code, intitule\n" +
+                "FROM formation\n" +
+                "WHERE formation.numeroActivite = ?");
+            ps.setInt(1,idActivite); // il prend le premier point d'interrogation puis remplacera par la variable
+            rs = ps.executeQuery();
 
-        return null;
+            while(rs.next())
+            {
+                Formation uneFormation = new Formation(rs.getString(1),rs.getString(2));
+                lesFormations.add(uneFormation);
+            }
+
+
+        } catch (SQLException ex)
+        {
+            throw new RuntimeException(ex);
+        }
+
+
+        return lesFormations;
     }
 }

@@ -24,8 +24,22 @@ public class CtrlAgent {
 
     public ArrayList<Agent> getAllAgentsNonInscrits(String idFormation)
     {
+        ArrayList<Agent> lesAgents = new ArrayList<>();
+        try {
+            ps = cnx.prepareStatement("SELECT agent.code, agent.nom, agent.prenom FROM agent WHERE agent.code NOT IN (SELECT agent.code FROM agent INNER JOIN inscription ON agent.code = inscription.codeAgent WHERE inscription.numeroFormation = ?);");
+            ps.setString(1,idFormation);
+            rs = ps.executeQuery();
 
-        return null;
+            while (rs.next())
+            {
+                Agent unAgent = new Agent(rs.getString(1),rs.getString(2),rs.getString(3));
+                lesAgents.add(unAgent);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lesAgents;
     }
 
 }
